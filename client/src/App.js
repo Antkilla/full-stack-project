@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import axios from 'axios';
+import ResumeForm from './ResumeForm';
 
 function App() {
   return (
-    <div>
-  
+    <div className = "App">
+      <h1>Auto-fill Resume App</h1>
+      <ResumeForm />
     </div>
   );
 }
