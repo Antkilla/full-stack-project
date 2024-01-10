@@ -3,13 +3,13 @@ const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
 
-const app = express(); //initializing express app
-const port = process.env.PORT || 3001;//a boolean expression that if port not specified it will default to the port number after the ||
+const app = express(); // initializing express app
+const port = process.env.PORT || 3001; // a boolean expression that if port not specified it will default to the port number after the ||
 
 // Middleware
-app.use(cors()); //middleware for allowing cross-origin resource sharing (eg. letting our client and server communicate)
+app.use(cors()); // middleware for allowing cross-origin resource sharing (eg. letting our client and server communicate)
 
-//use pool from pg package to create database connection
+// use pool from pg package to create a database connection
 const pool = new Pool({
   user: 'aamariles123',
   host: 'localhost',
@@ -20,11 +20,11 @@ const pool = new Pool({
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('Hello, 1234566543456iuytr backend!'); //client is request info and a response back(GET) localhost:3001 => the response back is the res.send code 
+  res.send('Hello, 1234566543456iuytr backend!'); // client is requesting info and a response back(GET) localhost:3001 => the response back is the res.send code
 });
 
-//client is requesting info from the root directory localhost:3001/auto-fill/:user_id, bc there is no info but the directory exist
-//the response back is server side failure 500 error
+// client is requesting info from the root directory localhost:3001/auto-fill/:user_id, bc there is no info but the directory exists
+// the response back is a server-side failure 500 errors
 app.get('/auto-fill/:user_id', async (req, res) => {
   const { user_id } = req.params;
   try {
@@ -36,7 +36,7 @@ app.get('/auto-fill/:user_id', async (req, res) => {
   }
 });
 
-//same as the code above me no info but directory exist 500 error
+// the same as the code above me no info but the directory exists 500 errors
 app.post('/submit-resume', async (req, res) => {
   const { user_id, section, content } = req.body;
   try {
@@ -48,7 +48,7 @@ app.post('/submit-resume', async (req, res) => {
   }
 });
 
-// Start server telling it to connect/listen to PORT 
+// Start the server telling it to connect/listen to PORT
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
