@@ -18,6 +18,7 @@ const ResumeForm = () => {
     const fetchAutoFillData = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/auto-fill/${user_id}`);
+        console.log('Auto-fill data:', response.data); // Log the response data
         if (response.data.length > 0) {
           // Populate form fields with auto-fill data
           //all will populate a random numbers and letters as a auto fill data
