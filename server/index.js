@@ -14,7 +14,8 @@ const pool = new Pool({
   user: 'aamariles123',
   host: 'localhost',
   database: 'resumes',
-  password: process.env.DB_PASSWORD,
+  password: 123456,
+  //process.env.DB_PASSWORD,//
   port: 5432,
 });
 
@@ -38,9 +39,9 @@ app.get('/auto-fill/:user_id', async (req, res) => {
 
 // the same as the code above me no info but the directory exists 500 errors
 app.post('/submit-resume', async (req, res) => {
-  const { user_id, section, content } = req.body;
+  const { user_id, name, address, section, education, experience } = req.body;
   try {
-    await pool.query('INSERT INTO resumes (user_id, section, content) VALUES ($1, $2, $3)', [user_id, section, content]);
+    await pool.query('INSERT INTO resumes (user_id, name, address, section, education, experience) VALUES ($1, $2, $3, $4, $5, $6)', [user_id, name, address, section, education, experience]);
     res.status(201).send('Resume submitted successfully');
   } catch (error) {
     console.error('Error submitting resume:', error);

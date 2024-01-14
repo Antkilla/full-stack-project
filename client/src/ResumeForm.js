@@ -20,9 +20,12 @@ const ResumeForm = () => {
         const response = await axios.get(`http://localhost:3001/auto-fill/${user_id}`);
         if (response.data.length > 0) {
           // Populate form fields with auto-fill data
+          //all will populate a random numbers and letters as a auto fill data
+          setName(response.data[0].name);
+          setAddress(response.data[0].address);
           setSection(response.data[0].section);
-          //set experience Content(response.data[0].experience);
-          setExperience(response.data[0].experience || ''); // Set body paragraph if available
+          setEducation(response.data[0].education)
+          setExperience(response.data[0].experience);
         }
       } catch (error) {
         console.error('Error fetching auto-fill data:', error);
@@ -66,7 +69,7 @@ const ResumeForm = () => {
 
         <label>Address:</label>
         <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
-        
+
         <label>Section:</label>
         <input type="text" value={section} onChange={(e) => setSection(e.target.value)} />
 
