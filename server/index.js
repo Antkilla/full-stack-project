@@ -1,5 +1,6 @@
 // required modules/imports
 const express = require('express');
+const axios = require('axios');
 const cors = require('cors');
 const { Pool } = require('pg');
 require('dotenv').config()
@@ -45,7 +46,7 @@ app.post('/submit-resume', async (req, res) => {
     res.status(201).send('Resume submitted successfully');
   } catch (error) {
     console.error('Error submitting resume:', error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send(`Internal Server Error: ${error.message}`);
   }
 });
 

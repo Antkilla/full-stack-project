@@ -25,7 +25,7 @@ const ResumeForm = () => {
           setName(response.data[0].name);
           setAddress(response.data[0].address);
           setSection(response.data[0].section);
-          setEducation(response.data[0].education)
+          setEducation(response.data[0].education);
           setExperience(response.data[0].experience);
         }
       } catch (error) {
