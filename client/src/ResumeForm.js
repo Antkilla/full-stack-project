@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button } from 'react-bootstrap'; 
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import Login from './Login';
 
 const ResumeForm = () => {
   const [user_id, setUserId] = useState('');
@@ -11,6 +12,7 @@ const ResumeForm = () => {
   const [section, setSection] = useState('');
   const [education, setEducation] = useState('');
   const [experience, setExperience] = useState('');
+  const [token, setToken] = useState(null);
 
 
   // Fetch auto-fill data when the component mounts
@@ -36,12 +38,21 @@ const ResumeForm = () => {
     fetchAutoFillData();
   }, [user_id]);
 
+  const handleLogin = (userToken) => {
+    // Handle the token received from the login component
+    setToken(userToken);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Send the resume data to the backend
     try {
-      await axios.post('http://localhost:3001/submit-resume', { user_id, name, address, section, education, experience });
+      await axios.post('http://localhost:3001/submit-resume', { user_id, name, address, section, education, experience }, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the headers
+        },
+      });
       alert('Resume submitted successfully!');
     } catch (error) {
       console.error('Error submitting resume:', error);
@@ -61,35 +72,38 @@ const ResumeForm = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label>User ID:</label>
-        <input type="text" value={user_id} onChange={(e) => setUserId(e.target.value)} />
+      {/* Include the Login component */}
+      {!token ? <Login LogOn={handleLogin} /> : (
+        <div>
+          <form onSubmit={handleSubmit}>
+            <label>User ID:</label>
+            <input type="text" value={user_id} onChange={(e) => setUserId(e.target.value)} />
 
-        <label>Name:</label>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+            <label>Name:</label>
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
-        <label>Address:</label>
-        <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+            <label>Address:</label>
+            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
 
-        <label>Section:</label>
-        <input type="text" value={section} onChange={(e) => setSection(e.target.value)} />
+            <label>Section:</label>
+            <input type="text" value={section} onChange={(e) => setSection(e.target.value)} />
 
-        <label>Education:</label>
-        <input type="text" value={education} onChange={(e) => setEducation(e.target.value)} className="larger-box" />
+            <label>Education:</label>
+            <input type="text" value={education} onChange={(e) => setEducation(e.target.value)} className="larger-box" />
 
-        <label>Experience:</label>
-        <textarea value={experience} onChange={(e) => setExperience(e.target.value)} className="larger-textarea" />
+            <label>Experience:</label>
+            <textarea value={experience} onChange={(e) => setExperience(e.target.value)} className="larger-textarea" />
 
-        <button type="submit">Submit Resume</button>    
-      </form>
-      
-      <button onClick={generateRandomUserId}>Generate Random ID</button>  
-      
-      {/* Print button */}
-      <Button variant="primary" onClick={handlePrint}>
-        Print Resume
-      </Button>
-    </div>
+            <button type="submit">Submit Resume</button>    
+          </form>
+          <button onClick={generateRandomUserId}>Generate Random ID</button>
+          {/* Print button */}
+          <Button variant="primary" onClick={handlePrint}>
+            Print Resume
+          </Button>
+         </div>
+       )}
+     </div>
   );
 };
 
