@@ -1,11 +1,11 @@
 .larger-textarea {
-  height: 200px; /* Adjust the height as needed */
+  height: 160px; /* Adjust the height as needed */
   width: 100%; /* Use 100% width or adjust as needed */
   resize: vertical; /* Allow vertical resizing */
 }
   
 .larger-box {
-  height: 120px; /* Adjust the height as needed */
+  height: 160px; /* Adjust the height as needed */
   width: 100%; /* Use 100% width or adjust as needed */
   resize: vertical; /* Allow vertical resizing */
 }

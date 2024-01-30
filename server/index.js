@@ -85,9 +85,9 @@ app.post('/login', async (req, res) => {
 // submit resume route
 // the same as the code above me no info but the directory exists 500 errors
 app.post('/submit-resume', async (req, res) => {
-  const { user_id, name, address, section, education, experience } = req.body;
+  const { user_id, name, address, section, skills, education, experience } = req.body;
   try {
-    await pool.query('INSERT INTO resume (user_id, name, address, section, education, experience) VALUES ($1, $2, $3, $4, $5, $6)', [user_id, name, address, section, education, experience]);
+    await pool.query('INSERT INTO resume (user_id, name, address, section, skills, education, experience) VALUES ($1, $2, $3, $4, $5, $6, $7)', [user_id, name, address, section, skills, education, experience]);
     res.status(201).send('Resume submitted successfully');
   } catch (error) {
     console.error('Error submitting resume:', error);
